@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: environmental_db
+    ports:
+      - "3307:3306"
+
+  mongodb:
+    image: mongo:7
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+
+  neo4j:
+    image: neo4j:5
+    container_name: neo4j_db
+    environment:
+      NEO4J_AUTH: neo4j/neo4j1234
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
